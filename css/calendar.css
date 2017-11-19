@@ -1,0 +1,64 @@
+.month {
+  width: 100%;
+  background: transparent;
+  text-align: center;
+  color:white;
+}
+
+.month>ul {
+  margin: 0;
+  padding: 0;
+}
+
+.month>ul>li {
+  color: black;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.weekdays {
+  margin: 0;
+  padding: 10px 0;
+}
+
+.weekdays>li {
+  display: inline-block;
+  width: 13.6%;
+  color: black;
+  background: rgba(255, 255, 255, 0.3);
+  text-align: center;
+}
+
+.days {
+  margin: 0;
+  padding: 20px 0;
+  background: transparent;
+}
+
+.days>li {
+  display: inline-block;
+  width: 13.5%;
+  height: 100px;
+  border: 1px solid white;
+  margin-bottom: 1%;
+}
+
+@media only screen and (max-width: 768px){
+  .days>li{
+    height: 50px;
+  }
+}
+
+.days>li>*>img {
+  width: 60%;
+  height: 80%;
+  float: right;
+}
+
+@media only screen and (max-width: 768px){
+  .days>li>*>img {
+    width: 50%;
+    height: 40%;
+  }
+}
