@@ -1,25 +1,21 @@
 <?php
-  session_start();
- ?>
+use TastyRecipes\Controller\SessionManager;
+use TastyRecipes\Util\Util;
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Sign up for more tasty recipes.</title>
-  <?php
-  include 'includes/head.php';
-  ?>
-</head>
-<body>
-  <?php
-  if (isset($_SESSION['u_id'])) {
-    include 'includes/navbarinlog.php';
-    include 'includes/body/signuppagebody.php';
-  }
-  else {
-    include 'includes/navbaroutlog.php';
-    include 'includes/body/signuppagebody.php';
-  }
-  ?>
-</body>
-</html>
+require_once 'classes/TastyRecipes/Util/Util.php';
+
+Util::init();
+$controller = SessionManager::getController();
+
+if(isset($_POST['submit'])) {
+    try {
+        $controller->signUp();
+        SessionManager::storeController($controller);
+        header("Location: /login.php");
+    } catch(\Exception $exception){
+        include 'resources/views/signuppage.php';
+    }
+}
+else {
+    include 'resources/views/signuppage.php';
+}

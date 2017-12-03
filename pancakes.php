@@ -1,26 +1,21 @@
 <?php
-  session_start();
-  include 'includes/showpancakecomments.php';
- ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Pancake recipe</title>
-  <?php
-  include 'includes/head.php';
-   ?>
-</head>
-<body>
-  <?php
-  if (isset($_SESSION['u_id'])) {
-    include 'includes/navbarinlog.php';
-    include 'includes/body/pancakesbody.php';
-  }
-  else {
-    include 'includes/navbaroutlog.php';
-    include 'includes/body/pancakesbodyoutlog.php';
-  }
-  ?>
-</body>
-</html>
+namespace TastyRecipes\View;
+
+use TastyRecipes\Controller\Controller;
+use TastyRecipes\Util\Util;
+
+require_once 'classes/TastyRecipes/Util/Util.php';
+
+Util::init();
+
+if (isset($_POST['submit'])) {
+    try {
+        Controller::storeComments(2);
+        header("Location: pancakes.php");
+    } catch (\Exception $exception) {
+        include 'resources/views/pancakes.php';
+    }
+} else {
+    include 'resources/views/pancakes.php';
+}
