@@ -45,8 +45,7 @@ class DBH {
 
         if ($dataBase == 1) {
             $dbName = "loginsystem";
-        }
-        else if ($dataBase == 2) {
+        } else if ($dataBase == 2) {
             $dbName = "comment section";
         } else
             $dbName = null;
@@ -79,65 +78,43 @@ class DBH {
 
     public static function getComments($pageid) {
         $connection = self::connect(2);
+        $arr = array();
         if ($pageid == 1) {
             $sql = "SELECT * FROM user_comments";
             $result = $connection->query($sql);
             while ($row = $result->fetch_assoc()) {
+                $commentNr = $row['user_comment_nr'];
                 $comment = $row['user_message'];
                 $userName = $row['user_idd'];
-                $userComment = new Comment($userName, $comment);
-                echo "<div class='thecomments'>";
-                echo $row['user_comment_nr'] . ". ";
-                echo $userComment->getUserName();
-                echo "<p id='commentid'>" . $userComment->getComment() . "</p>";
-                if (isset($_SESSION['u_id'])) {
-                    if ($row['user_idd'] == $_SESSION['u_uid']) {
-                        echo "<form class='delete-form' method='POST' action='/meatballs.php'>
-                            <input type='hidden' name='user_comment_nr' value='" . $row['user_comment_nr'] . "'>
-                            <button type='sumbit' name='deleteCom'>Delete</button>
-                          </form>";
-                    }
-                }
-                echo "</div>";
+                array_push($arr, $commentNr);
+                array_push($arr, $userName);
+                array_push($arr, $comment);
             }
         }
         if ($pageid == 2) {
             $sql = "SELECT * FROM user_comments2";
             $result = $connection->query($sql);
             while ($row = $result->fetch_assoc()) {
+                $commentNr = $row['user_comment_nr'];
                 $comment = $row['user_message'];
                 $userName = $row['user_idd'];
-                $userComment = new Comment($userName, $comment);
-                echo "<div class='thecomments'>";
-                echo $row['user_comment_nr'] . ". ";
-                echo $userComment->getUserName();
-                echo "<p id='commentid'>" . $userComment->getComment() . "</p>";
-                if (isset($_SESSION['u_id'])) {
-                    if ($row['user_idd'] == $_SESSION['u_uid']) {
-                        echo "<form class='delete-form' method='POST' action='/pancakes.php'>
-                            <input type='hidden' name='user_comment_nr' value='" . $row['user_comment_nr'] . "'>
-                            <button type='sumbit' name='deleteCom'>Delete</button>
-                          </form>";
-                    }
-                }
-                echo "</div>";
+                array_push($arr, $commentNr);
+                array_push($arr, $userName);
+                array_push($arr, $comment);
             }
         }
+        return $arr;
     }
 
-    public static function deleteComment($pageid) {
+    public static function deleteComment($pageid, $usercommentnr) {
         $connection = self::connect(2);
-        if (isset($_POST['deleteCom'])) {
-            if ($pageid == 1) {
-                $usercommentnr = $_POST['user_comment_nr'];
-                $sql = "DELETE FROM user_comments WHERE user_comment_nr='$usercommentnr'";
-                $connection->query($sql);
-            }
-            if ($pageid == 2) {
-                $usercommentnr = $_POST['user_comment_nr'];
-                $sql = "DELETE FROM user_comments2 WHERE user_comment_nr='$usercommentnr'";
-                $connection->query($sql);
-            }
+        if ($pageid == 1) {
+            $sql = "DELETE FROM user_comments WHERE user_comment_nr='$usercommentnr'";
+            $connection->query($sql);
+        }
+        if ($pageid == 2) {
+            $sql = "DELETE FROM user_comments2 WHERE user_comment_nr='$usercommentnr'";
+            $connection->query($sql);
         }
     }
 

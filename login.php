@@ -9,7 +9,9 @@ Util::init();
 $controller = SessionManager::getController();
 if(isset($_POST['submit'])) {
     try {
-        $controller->logIn();
+        $userName = htmlspecialchars($_POST['uname'], ENT_QUOTES, 'UTF-8');
+        $passWord = htmlspecialchars($_POST['psw'], ENT_QUOTES, 'UTF-8');
+        $controller->logIn($userName, $passWord);
         SessionManager::storeController($controller);
         header("Location: /");
     } catch(\Exception $exception){

@@ -9,7 +9,12 @@ $controller = SessionManager::getController();
 
 if(isset($_POST['submit'])) {
     try {
-        $controller->signUp();
+        $firstName = htmlspecialchars($_POST['fname'], ENT_QUOTES, 'UTF-8');
+        $lastName = htmlspecialchars($_POST['lname'], ENT_QUOTES, 'UTF-8');
+        $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
+        $userName = htmlspecialchars($_POST['uname'], ENT_QUOTES, 'UTF-8');
+        $passWord = htmlspecialchars($_POST['psw'], ENT_QUOTES, 'UTF-8');
+        $controller->signUp($firstName, $lastName, $email, $userName, $passWord);
         SessionManager::storeController($controller);
         header("Location: /login.php");
     } catch(\Exception $exception){

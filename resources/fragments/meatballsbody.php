@@ -54,13 +54,6 @@
     </div>
   </div>
     <?php
-    use TastyRecipes\Controller\SessionManager;
-    use TastyRecipes\Util\Util;
-    $controller = SessionManager::getController();
     include 'commentsection.php';
-    $controller->deleteComments(1);
-    SessionManager::storeController($controller);
-    $controller->getComments(1);
-    SessionManager::storeController($controller);
     ?>
 </div>

@@ -56,8 +56,6 @@
     <?php
     use TastyRecipes\Controller\SessionManager;
     include 'commentsectionoutlog.php';
-    $controller = SessionManager::getController();
-    $controller->getComments(1);
-    SessionManager::storeController($controller);
+    include 'commentsection.php';
     ?>
 </div>

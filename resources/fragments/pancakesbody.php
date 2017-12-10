@@ -49,12 +49,10 @@
     </div>
   </div>
   <?php
-  use TastyRecipes\Controller\SessionManager;
+  if (isset($_POST['deleteCom'])) {
+      $usercommentnr = $_POST['user_comment_nr'];
+      $controller->deleteComments(2, $usercommentnr);
+  }
   include 'commentsectionpancakes.php';
-  $controller = SessionManager::getController();
-  $controller->deleteComments(2);
-  SessionManager::storeController($controller);
-  $controller->getComments(2);
-  SessionManager::storeController($controller);
   ?>
 </div>

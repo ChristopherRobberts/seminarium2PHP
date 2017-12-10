@@ -7,7 +7,9 @@ require_once 'classes/TastyRecipes/Util/Util.php';
 
 Util::init();
 $controller = SessionManager::getController();
-$controller->logOut();
+if (isset($_POST['outlog'])) {
+    $controller->logOut();
+}
 SessionManager::storeController($controller);
 
 header("Location: index.php");
