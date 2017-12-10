@@ -1,4 +1,5 @@
 <?php
+namespace TastyRecipes\View;
 use TastyRecipes\Controller\SessionManager;
 use TastyRecipes\Util\Util;
 
