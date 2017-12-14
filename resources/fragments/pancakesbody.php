@@ -1,4 +1,5 @@
 <div class="contrast">
+    <input type="hidden" class="pagenumber" value=2>
   <h1 class="header">Pancakes</h1>
   <div class="image">
     <img alt="meatballs" src="http://img.sndimg.com/food/image/upload/w_555,h_416,c_fit,fl_progressive,q_95/v1/img/recipes/20/24/98/piccyAHK9.jpg">
@@ -49,10 +50,6 @@
     </div>
   </div>
   <?php
-  if (isset($_POST['deleteCom'])) {
-      $usercommentnr = $_POST['user_comment_nr'];
-      $controller->deleteComments(2, $usercommentnr);
-  }
   include 'commentsectionpancakes.php';
   ?>
 </div>

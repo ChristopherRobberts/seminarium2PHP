@@ -59,20 +59,29 @@ class DBH {
 
         $theComment = mysqli_real_escape_string($connection, $comment->getComment());
         $userid = mysqli_real_escape_string($connection, $comment->getUserName());
+        $sql = "";
 
         if ($pageNumber == 1) {
             if (empty($comment)) {
                 throw new \Exception("Empty");
             }
             $sql = "INSERT INTO user_comments(user_message, user_idd) VALUES ('$theComment', '$userid');";
-            mysqli_query($connection, $sql);
         }
         if ($pageNumber == 2) {
             if (empty($comment)) {
                 throw new \Exception("Empty");
             }
             $sql = "INSERT INTO user_comments2(user_message, user_idd) VALUES ('$theComment', '$userid');";
-            mysqli_query($connection, $sql);
+        }
+        if (mysqli_query($connection, $sql) === TRUE) {
+            $last_id = $connection->insert_id;
+            return [
+                'id' => $last_id,
+                'username' => $comment->getUserName(),
+                'text' => $comment->getComment()
+            ];
+        } else {
+            return null;
         }
     }
 
@@ -86,8 +95,11 @@ class DBH {
                 $commentNr = $row['user_comment_nr'];
                 $comment = $row['user_message'];
                 $userName = $row['user_idd'];
-                array_push($arr, $commentNr);
-                array_push($arr, $userName);
+                $comment = [
+                    'id' => $commentNr,
+                    'text' => $comment,
+                    'username' => $userName
+                ];
                 array_push($arr, $comment);
             }
         }
@@ -98,8 +110,11 @@ class DBH {
                 $commentNr = $row['user_comment_nr'];
                 $comment = $row['user_message'];
                 $userName = $row['user_idd'];
-                array_push($arr, $commentNr);
-                array_push($arr, $userName);
+                $comment = [
+                    'id' => $commentNr,
+                    'text' => $comment,
+                    'username' => $userName
+                ];
                 array_push($arr, $comment);
             }
         }
@@ -153,5 +168,17 @@ class DBH {
         $stmt = $connection->prepare($sql);
         $stmt->bind_param("sssss", $fname, $lname, $email, $uname, $hashedPwd); //bind variables '$fname', '$lname', '$email', '$uname', '$hashedPwd'
         $stmt->execute(); //execute the prepared statement
+    }
+
+    public static function countComments($pageID) {
+        $connection = self::connect(2);
+        if ($pageID == 1) {
+            $result = mysqli_query($connection, "SELECT * FROM user_comments");
+            $rows = mysqli_num_rows($result);
+        } else if ($pageID == 2) {
+            $result = mysqli_query($connection, "SELECT * FROM user_comments2");
+            $rows = mysqli_num_rows($result);
+        }
+        return $rows;
     }
 }

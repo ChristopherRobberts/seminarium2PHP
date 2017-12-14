@@ -1,4 +1,5 @@
 <div class="contrast">
+    <input type="hidden" class="pagenumber" value=1>
   <h1 class="header">Swedish Meatballs</h1>
   <div class="image">
     <img alt="pancakes" src = "http://images.scrippsnetworks.com/up/tp/Scripps_-_Food_Category_Prod/6/915/0156087_630x355.jpg">

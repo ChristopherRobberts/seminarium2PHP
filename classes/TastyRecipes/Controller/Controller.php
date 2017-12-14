@@ -23,11 +23,11 @@ class Controller {
 
     public function storeComments($number, $userName, $message) {
         $comment = new Comment($userName, $message);
-        DBH::registerComment($comment, $number);
+        return DBH::registerComment($comment, $number);
     }
 
     public function getComments($num) {
-        return $arr = DBH::getComments($num);
+        return DBH::getComments($num);
     }
 
     public function deleteComments($pageid, $usercommentnr) {
@@ -37,5 +37,10 @@ class Controller {
     public function signUp($firstName, $lastName, $email, $userName, $passWord) {
         $newUser = new User($firstName, $lastName, $userName, $email, $passWord);
         DBH::signUp($newUser);
+    }
+
+    public function getNumRows($pageID){
+        $numrows = DBH::countComments($pageID);
+        return $numrows;
     }
 }

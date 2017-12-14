@@ -1,6 +1,3 @@
-<?php
-use TastyRecipes\Util\Util;
-?>
 <div class="contrast">
   <div class="contain">
       <form action="/login.php" method="POST">
@@ -14,10 +11,5 @@ use TastyRecipes\Util\Util;
             <button name="submit" type="submit">Log in</button>
           </div>
       </form>
-      <?php
-      if (isset($exception)){
-          echo $exception->getMessage();
-      }
-      ?>
     </div>
 </div>

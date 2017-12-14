@@ -50,6 +50,6 @@
   </div>
   <?php
   include 'commentsectionoutlog.php';
-  include 'commentsection.php';
+  include 'commentsectionpancakes.php';
   ?>
 </div>

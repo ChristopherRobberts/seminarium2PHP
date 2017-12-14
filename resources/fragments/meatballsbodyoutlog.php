@@ -54,7 +54,6 @@
     </div>
   </div>
     <?php
-    use TastyRecipes\Controller\SessionManager;
     include 'commentsectionoutlog.php';
     include 'commentsection.php';
     ?>
